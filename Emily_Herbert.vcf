@@ -1,0 +1,14 @@
+BEGIN:VCARD
+VERSION:3.0
+FN:Emily Herbert
+N:Herbert;Emily;;;
+TITLE:Designer + Developer
+EMAIL;TYPE=INTERNET:emarieherb@gmail.com
+TEL;TYPE=CELL:15095991343
+URL:https://emc0ded.com
+X-SOCIALPROFILE;TYPE=linkedin:https://www.linkedin.com/in/emarieherb/
+X-SOCIALPROFILE;TYPE=tiktok:https://www.tiktok.com/@emc0ded
+X-SOCIALPROFILE;TYPE=github:https://github.com/emc0ded
+X-SOCIALPROFILE;TYPE=instagram:https://instagram.com/emc0ded
+ADR;TYPE=WORK:;;;Spokane;;United States
+END:VCARD

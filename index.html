@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>emily herbert — portfolio</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Index-only tweaks */
+    .scroll-hint {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      z-index: 5;
+      pointer-events: none;
+    }
+    .scroll-hint span {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--mid);
+    }
+    .scroll-hint-line {
+      width: 1px;
+      height: 40px;
+      background: var(--light);
+      position: relative;
+      overflow: hidden;
+    }
+    .scroll-hint-line::after {
+      content: '';
+      position: absolute;
+      top: -100%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--mid);
+      animation: scrollDown 1.6s ease infinite;
+    }
+    @keyframes scrollDown {
+      0%   { top: -100%; }
+      100% { top: 200%; }
+    }
+    /* drag hint */
+    .drag-hint {
+      position: absolute;
+      top: 88px;
+      right: 48px;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #ccc;
+      z-index: 5;
+      pointer-events: none;
+    }
+    /* work links strip at bottom of hero */
+    .work-strip {
+      position: absolute;
+      bottom: 0;
+      left: 0; right: 0;
+      display: flex;
+      border-top: 1px solid var(--light);
+      z-index: 5;
+    }
+    .work-strip a {
+      flex: 1;
+      padding: 18px 0;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--mid);
+      border-right: 1px solid var(--light);
+      transition: background 0.2s, color 0.2s;
+    }
+    .work-strip a:last-child { border-right: none; }
+    .work-strip a:hover { background: var(--cream); color: var(--fg); }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav>
+    <a href="index.html" class="active">HOME</a>
+    <a href="#about">ABOUT</a>
+    <div class="nav-dropdown">
+      <span class="nav-dropdown-toggle">WORK</span>
+      <div class="nav-dropdown-menu">
+        <a href="social-media.html">Social Media</a>
+        <a href="web-design.html">Web Design</a>
+        <a href="development.html">Development</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+
+    <p class="drag-hint">drag the elements ↓</p>
+
+    <!-- Centered title (not draggable) -->
+    <h1 class="hero-title">welcome to<br>emily's portfolio!</h1>
+
+    <!-- ① Photo placeholder -->
+    <div class="draggable" id="drag-photo" style="left: 13%; top: 38%">
+      <div class="photo-card">
+        [ photo<br>goes here ]
+      </div>
+    </div>
+
+    <!-- ② Sticky note / bio card -->
+    <div class="draggable" id="drag-sticky" style="left: 22%; top: 60%">
+      <div class="sticky-note">
+        <p>Social Media Manager &amp;<br>Guest Experience Coordinator</p>
+        <p>Incognito Salon &amp; Spa</p>
+        <p class="cursive">(2021 – )</p>
+        <hr>
+        <p>Eastern Washington University</p>
+        <p>B.S. Computer Science</p>
+        <p>Minor in Design</p>
+        <p class="cursive">(2022 – 2026)</p>
+      </div>
+    </div>
+
+    <!-- ③ Gold star -->
+    <div class="draggable" id="drag-star" style="right: 15%; top: 18%">
+      <div class="gold-star">
+        <svg viewBox="0 0 100 95" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="starGold" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%"   stop-color="#f0d070"/>
+              <stop offset="40%"  stop-color="#c8a040"/>
+              <stop offset="70%"  stop-color="#a07820"/>
+              <stop offset="100%" stop-color="#c8a040"/>
+            </linearGradient>
+          </defs>
+          <polygon
+            points="50,5 61,35 95,35 68,57 79,91 50,70 21,91 32,57 5,35 39,35"
+            fill="url(#starGold)"
+          />
+        </svg>
+      </div>
+    </div>
+
+    <!-- ④ Circular sticker / logo placeholder -->
+    <div class="draggable" id="drag-sticker" style="right: 8%; top: 52%">
+      <div class="sticker-circle">
+        [ logo<br>sticker<br>here ]
+      </div>
+    </div>
+
+    <!-- Work category strip -->
+    <div class="work-strip">
+      <a href="social-media.html">Social Media</a>
+      <a href="web-design.html">Web Design</a>
+      <a href="development.html">Development</a>
+    </div>
+
+  </section>
+
+  <!-- ── ABOUT ── -->
+  <section class="about-section" id="about">
+
+    <div class="about-photo-wrap">
+      <div class="about-photo-placeholder">
+        [ full-body<br>cutout photo ]
+      </div>
+    </div>
+
+    <div class="about-text">
+      <h2>hi, i'm emily!</h2>
+      <p class="tagline">I have always loved a good makeover, and now I get to give them in a different way...</p>
+      <p>I am a former cosmetologist turned computer scientist and web designer based in Spokane, WA. With a passion for aesthetics and design, I thrive on bringing out the best in everything I create.</p>
+      <p>Just as style and trends are ever-evolving, I believe periodic refreshes are essential to stay ahead and make a lasting impression.</p>
+    </div>
+
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <span class="footer-name">emily herbert</span>
+    <div class="footer-links">
+      <a href="https://instagram.com/emc0ded" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://linkedin.com/in/emarieherb" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/emc0ded" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <span class="footer-copy">© 2026 emily herbert</span>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

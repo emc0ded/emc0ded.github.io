@@ -247,22 +247,20 @@ nav a.active { border-bottom: 1.5px solid var(--fg); }
   filter: drop-shadow(0 3px 8px rgba(160,120,30,0.25));
 }
 
-/* Sticker / logo placeholder */
-.sticker-circle {
-  width: 128px;
-  height: 128px;
-  border-radius: 50%;
-  border: 2px dashed #ccc;
-  background: var(--cream);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-mono);
-  font-size: 9.5px;
-  color: var(--mid);
-  text-align: center;
-  padding: 22px;
-  line-height: 1.6;
+/* Sticker image */
+.hero-sticker {
+  width: 148px;
+  height: 148px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Resume image */
+.hero-resume {
+  width: 170px;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(2px 4px 12px rgba(0,0,0,0.18));
 }
 
 /* ─────────────────────────────────────────
@@ -284,19 +282,33 @@ nav a.active { border-bottom: 1.5px solid var(--fg); }
   align-items: flex-end;
 }
 
-.about-photo-placeholder {
-  width: 310px;
-  height: 470px;
-  background: var(--light);
-  border: 2px dashed #ccc;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--mid);
-  text-align: center;
-  line-height: 1.6;
+/* Wave stop-motion animation */
+.wave-anim {
+  position: relative;
+  width: 320px;
+  height: 480px;
+}
+
+.wave-frame {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom center;
+}
+
+.wave-a {
+  animation: wave-swap 0.5s steps(1) infinite;
+}
+
+.wave-b {
+  animation: wave-swap 0.5s steps(1) infinite reverse;
+}
+
+@keyframes wave-swap {
+  0%,  49.9% { opacity: 1; }
+  50%, 100%  { opacity: 0; }
 }
 
 .about-text h2 {

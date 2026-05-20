@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>emily herbert — portfolio</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=4">
   <style>
     /* Index-only tweaks */
     .scroll-hint {
@@ -92,15 +92,13 @@
   <nav>
     <a href="index.html" class="active">HOME</a>
     <a href="#about">ABOUT</a>
-    <div class="nav-dropdown">
-      <span class="nav-dropdown-toggle">WORK</span>
-      <div class="nav-dropdown-menu">
-        <a href="social-media.html">Social Media</a>
-        <a href="web-design.html">Web Design</a>
-        <a href="development.html">Development</a>
-      </div>
-    </div>
+    <span class="nav-dropdown-toggle" data-menu="work-menu">WORK</span>
   </nav>
+  <div class="nav-dropdown-menu" id="work-menu">
+    <a href="social-media.html">Social Media</a>
+    <a href="web-design.html">Web Design</a>
+    <a href="development.html">Development</a>
+  </div>
 
   <!-- ── HERO ── -->
   <section class="hero">
@@ -118,7 +116,7 @@
     </div>
 
     <!-- ② Resume image -->
-    <div class="draggable" id="drag-sticky" style="left: 22%; top: 52%">
+    <div class="draggable" id="drag-sticky" style="left: 22%; top: 62%">
       <img src="assets/resume.png" alt="Resume" class="hero-resume">
     </div>
 
@@ -186,6 +184,6 @@
     <span class="footer-copy">© 2026 emily herbert</span>
   </footer>
 
-  <script src="js/main.js"></script>
+  <script src="js/main.js?v=4"></script>
 </body>
 </html>

@@ -35,15 +35,13 @@ body {
 nav {
   position: fixed;
   top: 0; left: 0; right: 0;
-  z-index: 200;
+  z-index: 9999;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 72px;
   padding: 22px 48px;
-  background: rgba(255,255,255,0.94);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(255,255,255,0.98);
 }
 
 nav a {
@@ -94,38 +92,23 @@ nav a.active { border-bottom: 1.5px solid var(--fg); }
   transition: transform 0.2s;
 }
 
-.nav-dropdown:hover .nav-dropdown-toggle::after {
+.nav-dropdown-toggle.open::after {
   transform: rotate(-135deg) translateY(-2px);
 }
 
 .nav-dropdown-menu {
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
+  position: fixed;
+  top: 64px;
   background: var(--bg);
-  min-width: 192px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.18s;
-  flex-direction: column;
-  display: flex;
-  /* invisible top padding bridges the gap so the mouse never leaves */
-  padding-top: 20px;
-}
-
-/* visible border sits below the invisible bridge */
-.nav-dropdown-menu::after {
-  content: '';
-  position: absolute;
-  top: 20px; left: 0; right: 0; bottom: 0;
   border: 1px solid var(--fg);
-  pointer-events: none;
+  min-width: 192px;
+  display: none;
+  flex-direction: column;
+  z-index: 99999;
 }
 
-.nav-dropdown:hover .nav-dropdown-menu {
-  opacity: 1;
-  pointer-events: all;
+.nav-dropdown-menu.open {
+  display: flex;
 }
 
 .nav-dropdown-menu a {
@@ -135,13 +118,14 @@ nav a.active { border-bottom: 1.5px solid var(--fg); }
   border-bottom: 1px solid var(--light);
   white-space: nowrap;
   display: block;
+  color: var(--fg);
+  text-decoration: none;
 }
 
 .nav-dropdown-menu a:last-child { border-bottom: none; }
 
 .nav-dropdown-menu a:hover {
   background: var(--cream);
-  opacity: 1;
 }
 
 /* ─────────────────────────────────────────
@@ -249,18 +233,18 @@ nav a.active { border-bottom: 1.5px solid var(--fg); }
 
 /* Sticker image */
 .hero-sticker {
-  width: 148px;
-  height: 148px;
+  width: 180px;
+  height: 180px;
   object-fit: contain;
   display: block;
 }
 
 /* Resume image */
 .hero-resume {
-  width: 170px;
+  width: 210px;
   object-fit: contain;
   display: block;
-  filter: drop-shadow(2px 4px 12px rgba(0,0,0,0.18));
+  filter: drop-shadow(2px 4px 10px rgba(0,0,0,0.2));
 }
 
 /* ─────────────────────────────────────────
@@ -299,16 +283,21 @@ nav a.active { border-bottom: 1.5px solid var(--fg); }
 }
 
 .wave-a {
-  animation: wave-swap 0.5s steps(1) infinite;
+  animation: wave-show 0.9s steps(1) infinite;
 }
 
 .wave-b {
-  animation: wave-swap 0.5s steps(1) infinite reverse;
+  animation: wave-hide 0.9s steps(1) infinite;
 }
 
-@keyframes wave-swap {
+@keyframes wave-show {
   0%,  49.9% { opacity: 1; }
   50%, 100%  { opacity: 0; }
+}
+
+@keyframes wave-hide {
+  0%,  49.9% { opacity: 0; }
+  50%, 100%  { opacity: 1; }
 }
 
 .about-text h2 {
@@ -678,18 +667,6 @@ nav a.active { border-bottom: 1.5px solid var(--fg); }
   background: var(--bg);
 }
 
-/* dropdown opens upward */
-.nav-dropdown-menu--up {
-  top: auto;
-  bottom: 100%;
-  padding-top: 0;
-  padding-bottom: 20px;
-}
-
-.nav-dropdown-menu--up::after {
-  top: 0;
-  bottom: 20px;
-}
 
 /* ─────────────────────────────────────────
    FOOTER

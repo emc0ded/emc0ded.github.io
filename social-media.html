@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>social media — emily herbert</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=4">
 </head>
 <body>
 
@@ -12,15 +12,13 @@
   <nav>
     <a href="index.html">HOME</a>
     <a href="index.html#about">ABOUT</a>
-    <div class="nav-dropdown">
-      <span class="nav-dropdown-toggle">WORK</span>
-      <div class="nav-dropdown-menu">
-        <a href="social-media.html">Social Media</a>
-        <a href="web-design.html">Web Design</a>
-        <a href="development.html">Development</a>
-      </div>
-    </div>
+    <span class="nav-dropdown-toggle" data-menu="work-menu">WORK</span>
   </nav>
+  <div class="nav-dropdown-menu" id="work-menu">
+    <a href="social-media.html">Social Media</a>
+    <a href="web-design.html">Web Design</a>
+    <a href="development.html">Development</a>
+  </div>
 
   <!-- ── PAGE HEADER ── -->
   <header class="work-header">
@@ -133,14 +131,9 @@
   <nav class="bottom-nav">
     <a href="index.html">HOME</a>
     <a href="index.html#about">ABOUT</a>
-    <div class="nav-dropdown">
-      <span class="nav-dropdown-toggle">WORK</span>
-      <div class="nav-dropdown-menu nav-dropdown-menu--up">
-        <a href="social-media.html">Social Media</a>
-        <a href="web-design.html">Web Design</a>
-        <a href="development.html">Development</a>
-      </div>
-    </div>
+    <a href="social-media.html">Social Media</a>
+    <a href="web-design.html">Web Design</a>
+    <a href="development.html">Development</a>
   </nav>
 
   <!-- ── FOOTER ── -->
@@ -154,6 +147,6 @@
     <span class="footer-copy">© 2026 emily herbert</span>
   </footer>
 
-  <script src="js/main.js"></script>
+  <script src="js/main.js?v=4"></script>
 </body>
 </html>

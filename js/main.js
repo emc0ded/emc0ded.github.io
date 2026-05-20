@@ -106,6 +106,38 @@ document.querySelectorAll('.scroll-section').forEach(section => {
 
 
 /* ─────────────────────────────────────────
+   NAV DROPDOWN — click-based toggle
+───────────────────────────────────────── */
+function closeAllDropdowns() {
+  document.querySelectorAll('.nav-dropdown-menu').forEach(m => m.classList.remove('open'));
+  document.querySelectorAll('.nav-dropdown-toggle').forEach(t => t.classList.remove('open'));
+}
+
+document.querySelectorAll('.nav-dropdown-toggle').forEach(toggle => {
+  const menuId = toggle.dataset.menu;
+  const menu   = document.getElementById(menuId);
+  if (!menu) return;
+
+  toggle.addEventListener('click', e => {
+    e.stopPropagation();
+    const isOpen = menu.classList.contains('open');
+    closeAllDropdowns();
+    if (!isOpen) {
+      const rect = toggle.getBoundingClientRect();
+      menu.style.left      = (rect.left + rect.width / 2) + 'px';
+      menu.style.transform = 'translateX(-50%)';
+      menu.classList.add('open');
+      toggle.classList.add('open');
+    }
+  });
+
+  menu.addEventListener('click', e => e.stopPropagation());
+});
+
+document.addEventListener('click', closeAllDropdowns);
+
+
+/* ─────────────────────────────────────────
    NAV — mark active page
 ───────────────────────────────────────── */
 (function markActiveNav() {

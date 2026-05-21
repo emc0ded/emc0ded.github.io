@@ -467,6 +467,15 @@ nav a.active { border-bottom: 1.5px solid var(--fg); }
   line-height: 1.7;
   padding: 12px;
 }
+.phone-screen img,
+.phone-screen video {
+  width: calc(100% + 24px);
+  height: calc(100% + 24px);
+  object-fit: cover;
+  border-radius: 22px;
+  display: block;
+  margin: -12px;
+}
 
 .phone-caption {
   font-family: var(--font-mono);

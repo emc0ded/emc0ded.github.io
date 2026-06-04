@@ -246,8 +246,10 @@
       position: absolute;
       inset: 0;
       width: 100%;
-      height: 100%;
+      height: 105%;
+      top: -5%;
       object-fit: cover;
+      object-position: center top;
       border-radius: 32px;
     }
     .hero-mockup-hint {
@@ -678,6 +680,76 @@
     }
 
 
+    /* ── APP GALLERY ── */
+    .app-gallery {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 48px;
+      align-items: start;
+      margin-bottom: 72px;
+    }
+
+    /* Watch cluster */
+    .watch-cluster { display: flex; flex-direction: column; }
+    .watch-mockup { display: flex; flex-direction: column; align-items: center; }
+    .watch-frame {
+      width: 300px;
+      height: 360px;
+      background: #1c1c1e;
+      border-radius: 76px;
+      border: 1px solid #333;
+      position: relative;
+      padding: 22px;
+      box-shadow: inset 0 0 0 1px #2a2a2a;
+    }
+    .watch-crown {
+      position: absolute;
+      right: -10px;
+      top: 80px;
+      width: 8px;
+      height: 56px;
+      background: #2a2a2a;
+      border-radius: 4px;
+      border: 1px solid #333;
+    }
+    .watch-screen {
+      width: 100%;
+      height: 100%;
+      border-radius: 56px;
+      overflow: hidden;
+      background: #000;
+      position: relative;
+    }
+    .watch-slideshow { position: relative; }
+    .watch-slide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+    .watch-slide.active { opacity: 1; }
+
+    /* Phone frame */
+    .app-gallery-phone { display: flex; flex-direction: column; }
+    .app-gallery-frame {
+      width: 180px;
+      aspect-ratio: 9/19;
+      border-radius: 20px;
+      overflow: hidden;
+      background: var(--card);
+      border: 1px solid var(--border);
+    }
+    .app-gallery-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
     /* ── PAGE FOOTER ── */
     .page-footer-wrap {
       border-top: 1px solid var(--border);
@@ -729,6 +801,7 @@
       .feature-grid { grid-template-columns: 1fr; }
       .port-grid { grid-template-columns: 1fr; gap: 48px; }
       .deliverables { grid-template-columns: 1fr; }
+      .app-gallery { grid-template-columns: 1fr; }
       .page-footer { flex-direction: column; gap: 16px; padding: 32px 40px; }
     }
   </style>
@@ -779,15 +852,8 @@
     </div>
 
     <div class="hero-right">
-      <!-- PLACEHOLDER: replace with pacer/hero-mockup.png — phone showing the map/route screen -->
       <div class="hero-mockup">
-        <div class="placeholder-box">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="1.5">
-            <rect x="5" y="2" width="14" height="20" rx="2"/>
-            <line x1="9" y1="7" x2="15" y2="7"/>
-          </svg>
-        </div>
-        <p class="hero-mockup-hint">App screenshot<br>pacer/hero-mockup.png</p>
+        <img src="assets/pacerpics/heroscreen.png" alt="Pacer app screenshot">
       </div>
     </div>
 
@@ -903,9 +969,8 @@
         <div class="tl-right">
           <h3>The Map Worked</h3>
           <p>Classmates thought the scope was too ambitious. Once the Mapbox map was working with live GPS, the doubt cleared. It was clear the project would come together.</p>
-          <!-- PLACEHOLDER: add pacer/screenshot-map.png — the Mapbox route screen -->
           <div class="tl-screenshot">
-            <span class="tl-screenshot-hint">pacer/screenshot-map.png</span>
+            <img src="assets/pacerpics/runroute.png" alt="Mapbox route screen">
           </div>
         </div>
       </div>
@@ -919,6 +984,9 @@
         <div class="tl-right">
           <h3>Emoji → Color Scale</h3>
           <p>Original effort rating used emojis (😴→💀). Felt too silly for the tone. Replaced with a color gradient — green (#4ade80) for easy, red (#ef4444) for max effort. A design judgment call, not user testing. Didn't change function — changed the tone entirely.</p>
+          <div class="tl-screenshot">
+            <img src="assets/pacerpics/rating.png" alt="Feel rating color scale">
+          </div>
         </div>
       </div>
 
@@ -1017,9 +1085,8 @@
           <div class="fcard-num">01</div>
           <div class="fcard-title">Post-Run Coaching</div>
           <p class="fcard-body">Initial prompts were generic and not useful. Refined with structured runner context, tone direction, and feel rating. Re-fetches when user selects their feel rating so the response is always relevant.</p>
-          <!-- PLACEHOLDER: add pacer/screenshot-coaching.png -->
           <div class="fcard-screenshot">
-            <span class="fcard-screenshot-hint">pacer/screenshot-coaching.png</span>
+            <img src="assets/pacerpics/coaching.png" alt="AI coaching screen">
           </div>
           <div class="prompt-block">
             <span class="plabel">// Prompt rules</span>
@@ -1034,6 +1101,9 @@
           <div class="fcard-num">02</div>
           <div class="fcard-title">Run Name Generation</div>
           <p class="fcard-body">Prompted with distance, pace, and time of day. Token limit set to 20 to force brevity — names should feel like something you'd actually save and share.</p>
+          <div class="fcard-screenshot">
+            <img src="assets/pacerpics/history.png" alt="Run history screen">
+          </div>
           <div class="prompt-block">
             <span class="plabel">// Example outputs</span>
             "Harbor Tempo Loop"<br>
@@ -1048,9 +1118,8 @@
           <div class="fcard-num">03</div>
           <div class="fcard-title">Adaptive Training Plan</div>
           <p class="fcard-body">Generates a full JSON plan (up to 20 weeks) from race goal, date, and recent run history. A second prompt adapts remaining weeks every Monday using completion rate and average perceived effort.</p>
-          <!-- PLACEHOLDER: add pacer/screenshot-training.png -->
           <div class="fcard-screenshot">
-            <span class="fcard-screenshot-hint">pacer/screenshot-training.png</span>
+            <img src="assets/pacerpics/trainingplan.png" alt="Adaptive training plan screen">
           </div>
           <div class="prompt-block">
             <span class="plabel">// Adaptation rules</span>
@@ -1080,6 +1149,32 @@
         <span class="label">// Portfolio</span>
         <h2 class="section-title">Product Highlight</h2>
       </div>
+    </div>
+
+    <!-- App screenshot gallery -->
+    <div class="app-gallery">
+
+      <!-- Watch cluster -->
+      <div class="watch-cluster">
+        <span class="label" style="margin-bottom: 20px;">// Apple Watch Companion</span>
+        <div class="watch-mockup">
+          <div class="watch-frame">
+            <div class="watch-crown"></div>
+            <div class="watch-screen watch-slideshow">
+              <img src="assets/pacerpics/runscreen1.png" alt="Watch run screen" class="watch-slide active">
+              <img src="assets/pacerpics/runscreen2.png" alt="Watch run screen" class="watch-slide">
+              <img src="assets/pacerpics/runscreen3.png" alt="Watch run screen" class="watch-slide">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phone frame -->
+      <div class="app-gallery-phone">
+        <span class="label" style="margin-bottom: 20px;">// Run History</span>
+        <div class="app-gallery-frame"><img src="assets/pacerpics/achievements.png" alt="Achievements screen"></div>
+      </div>
+
     </div>
 
     <div class="pullquote">
@@ -1185,5 +1280,16 @@
     </footer>
   </div>
 
+  <script>
+    // Apple Watch slideshow
+    const slides = document.querySelectorAll('.watch-slide');
+    let current  = 0;
+
+    setInterval(() => {
+      slides[current].classList.remove('active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('active');
+    }, 2200);
+  </script>
 </body>
 </html>

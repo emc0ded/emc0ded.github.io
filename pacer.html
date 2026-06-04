@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pacer — Case Study — emily herbert</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+
+  <!--
+  ═══════════════════════════════════════════════════
+  SUGGESTED ASSETS — replace placeholders below with:
+
+  · pacer/hero-mockup.png  — phone mockup showing the map/route screen (hero right column)
+  · pacer/screenshot-map.png — live Mapbox route screen (process section — "The Map Worked")
+  · pacer/screenshot-coaching.png — AI coaching screen (AI feature card 01)
+  · pacer/screenshot-training.png — training plan screen (AI feature card 03)
+  · pacer/screenshot-history.png — run history with color feel scale (portfolio section)
+  · pacer/app-icon.png — app icon (footer / anywhere)
+
+  All assets go in /assets/pacer/ for organization.
+  ═══════════════════════════════════════════════════
+  -->
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #111111;
+      --card:         #1A1A1A;
+      --border:       #252525;
+      --text:         #FFFFFF;
+      --secondary:    #888888;
+      --muted:        #444444;
+      --accent:       #E8F400;
+      --accent-text:  #111111;
+      --bebas:        'Bebas Neue', sans-serif;
+      --mono:         'IBM Plex Mono', monospace;
+      --body:         'DM Sans', sans-serif;
+      --r-card:       10px;
+      --r-chip:       8px;
+      --r-pill:       50px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--body);
+      font-weight: 300;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── PAGE NAV ── */
+    .pnav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 56px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 64px;
+      z-index: 100;
+    }
+    .pnav-back {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--secondary);
+      transition: color 0.2s;
+    }
+    .pnav-back:hover { color: var(--text); }
+    .pnav-id {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── SHARED ATOMS ── */
+    .label {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--secondary);
+      display: block;
+    }
+    .pill {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: var(--r-pill);
+      border: 1px solid var(--border);
+      color: var(--secondary);
+    }
+    .pill.accent {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--accent-text);
+      font-weight: 400;
+    }
+
+    /* ── SECTION WRAPPER ── */
+    .wrap {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 100px 80px;
+    }
+    .section-outer {
+      border-top: 1px solid var(--border);
+    }
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      gap: 20px;
+      margin-bottom: 64px;
+    }
+    .section-num {
+      font-family: var(--bebas);
+      font-size: 80px;
+      line-height: 1;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+    .section-meta { display: flex; flex-direction: column; gap: 6px; padding-bottom: 6px; }
+    .section-title {
+      font-family: var(--bebas);
+      font-size: 42px;
+      line-height: 1;
+      color: var(--text);
+      letter-spacing: 0.02em;
+    }
+
+
+    /* ════════════════════════════════
+       SECTION 1 — HERO
+    ════════════════════════════════ */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      padding: 120px 80px 80px;
+      max-width: 1360px;
+      margin: 0 auto;
+    }
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .hero-title {
+      font-family: var(--bebas);
+      font-size: clamp(110px, 15vw, 220px);
+      line-height: 0.9;
+      letter-spacing: 0.01em;
+      color: var(--text);
+      margin-bottom: 32px;
+    }
+    .hero-tagline {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--secondary);
+      line-height: 1.75;
+      max-width: 500px;
+      margin-bottom: 48px;
+    }
+    .hero-stats {
+      display: flex;
+      border: 1px solid var(--border);
+      border-radius: var(--r-card);
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+    .hero-stat {
+      flex: 1;
+      padding: 24px 28px;
+      border-right: 1px solid var(--border);
+    }
+    .hero-stat:last-child { border-right: none; }
+    .hero-stat-val {
+      font-family: var(--bebas);
+      font-size: 60px;
+      line-height: 1;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+    .hero-stat-lbl {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--secondary);
+    }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      background: var(--accent);
+      color: var(--accent-text);
+      padding: 14px 28px;
+      border-radius: var(--r-pill);
+      font-weight: 400;
+      transition: opacity 0.2s;
+    }
+    .hero-cta:hover { opacity: 0.85; }
+
+    .hero-right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-mockup {
+      width: 100%;
+      max-width: 420px;
+      aspect-ratio: 9/18;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-mockup img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 32px;
+    }
+    .hero-mockup-hint {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+    }
+    .placeholder-box {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--muted);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+
+    /* ════════════════════════════════
+       SECTION 2 — RESEARCH
+    ════════════════════════════════ */
+    .research-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--r-card);
+      overflow: hidden;
+    }
+    .rcard {
+      background: var(--card);
+      padding: 36px 32px;
+    }
+    .rcard.span2 { grid-column: span 2; }
+    .rcard.span3 { grid-column: span 3; }
+
+    .rcard-label {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 14px;
+    }
+    .rcard h3 {
+      font-family: var(--bebas);
+      font-size: 26px;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+    .rcard p {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--secondary);
+      line-height: 1.8;
+    }
+    .source-list {
+      list-style: none;
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .source-list li {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      color: var(--secondary);
+      padding-left: 18px;
+      position: relative;
+      line-height: 1.5;
+    }
+    .source-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--muted);
+    }
+
+
+    /* ════════════════════════════════
+       SECTION 3 — PROCESS
+    ════════════════════════════════ */
+    .timeline { display: flex; flex-direction: column; }
+
+    .tl-item {
+      display: grid;
+      grid-template-columns: 160px 1px 1fr;
+      gap: 0 48px;
+    }
+    .tl-left {
+      padding: 40px 0;
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+    }
+    .tl-step {
+      font-family: var(--bebas);
+      font-size: 52px;
+      line-height: 1;
+      color: var(--muted);
+    }
+    .tl-tag {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .tl-tag.pivot    { color: var(--accent); }
+    .tl-tag.moment   { color: #4ade80; }
+    .tl-tag.reject   { color: #ef4444; }
+    .tl-tag.default  { color: var(--muted); }
+
+    .tl-spine {
+      background: var(--border);
+      position: relative;
+    }
+    .tl-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--muted);
+      position: absolute;
+      top: 48px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .tl-dot.accent { background: var(--accent); }
+    .tl-dot.green  { background: #4ade80; }
+    .tl-dot.red    { background: #ef4444; }
+
+    .tl-right {
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+    }
+    .tl-item:first-child .tl-right { border-top: none; }
+
+    .tl-right h3 {
+      font-family: var(--bebas);
+      font-size: 24px;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .tl-right p {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--secondary);
+      line-height: 1.8;
+      max-width: 620px;
+    }
+    .tl-screenshot {
+      margin-top: 20px;
+      width: 100%;
+      max-width: 380px;
+      aspect-ratio: 16/10;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--r-card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .tl-screenshot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .tl-screenshot-hint {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+
+    /* ════════════════════════════════
+       SECTION 4 — AI + BUILD
+    ════════════════════════════════ */
+    .ai-sub {
+      margin-bottom: 72px;
+    }
+    .ai-sub:last-child { margin-bottom: 0; }
+    .ai-sub-label {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--secondary);
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      display: block;
+      margin-bottom: 36px;
+    }
+
+    /* Partner grid */
+    .partner-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+    .partner-copy p {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--secondary);
+      line-height: 1.85;
+      margin-bottom: 14px;
+    }
+    .partner-copy p:last-child { margin-bottom: 0; }
+    .partner-copy strong { color: var(--text); font-weight: 400; }
+
+    .callout-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .callout-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-card);
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .callout-badge {
+      width: 30px;
+      height: 30px;
+      background: var(--accent);
+      border-radius: 6px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent-text);
+    }
+    .callout-txt {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+
+    /* Feature cards */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--r-card);
+      overflow: hidden;
+    }
+    .fcard {
+      background: var(--card);
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+    }
+    .fcard-num {
+      font-family: var(--bebas);
+      font-size: 72px;
+      line-height: 1;
+      color: var(--accent);
+      margin-bottom: 2px;
+    }
+    .fcard-title {
+      font-family: var(--bebas);
+      font-size: 22px;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+    .fcard-body {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--secondary);
+      line-height: 1.8;
+      margin-bottom: 20px;
+      flex: 1;
+    }
+    .fcard-screenshot {
+      width: 100%;
+      aspect-ratio: 9/16;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--r-chip);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+    .fcard-screenshot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .fcard-screenshot-hint {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .prompt-block {
+      background: #0A0A0A;
+      border: 1px solid var(--border);
+      border-radius: var(--r-chip);
+      padding: 16px;
+      font-family: var(--mono);
+      font-size: 10px;
+      line-height: 1.75;
+      color: var(--muted);
+    }
+    .prompt-block .plabel {
+      color: var(--accent);
+      display: block;
+      margin-bottom: 8px;
+    }
+
+
+    /* ════════════════════════════════
+       SECTION 5 — PORTFOLIO
+    ════════════════════════════════ */
+    .pullquote {
+      padding: 72px 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 72px;
+    }
+    .pullquote-text {
+      font-family: var(--bebas);
+      font-size: clamp(36px, 5vw, 68px);
+      line-height: 1.12;
+      letter-spacing: 0.01em;
+      color: var(--text);
+      max-width: 960px;
+    }
+    .pullquote-text em {
+      color: var(--accent);
+      font-style: normal;
+    }
+    .pullquote-attr {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 24px;
+    }
+
+    .port-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      margin-bottom: 80px;
+    }
+    .port-col h3 {
+      font-family: var(--bebas);
+      font-size: 22px;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+    .port-col p {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--secondary);
+      line-height: 1.85;
+      margin-bottom: 14px;
+    }
+    .port-col p:last-child { margin-bottom: 0; }
+    .port-col p strong { color: var(--text); font-weight: 400; }
+
+    /* Deliverables */
+    .deliverables {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--r-card);
+      overflow: hidden;
+    }
+    .dlv {
+      background: var(--card);
+      padding: 22px 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .dlv-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      margin-top: 6px;
+    }
+    .dlv-body { display: flex; flex-direction: column; gap: 3px; }
+    .dlv-title {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+    .dlv-desc {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--secondary);
+      line-height: 1.6;
+    }
+
+
+    /* ── PAGE FOOTER ── */
+    .page-footer-wrap {
+      border-top: 1px solid var(--border);
+    }
+    .page-footer {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 40px 80px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .page-footer-left {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .page-footer-right {
+      display: flex;
+      gap: 32px;
+    }
+    .page-footer-right a {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--secondary);
+      transition: color 0.2s;
+    }
+    .page-footer-right a:hover { color: var(--text); }
+
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1000px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 100px 40px 64px;
+      }
+      .hero-right { display: none; }
+      .wrap { padding: 72px 40px; }
+      .pnav { padding: 0 24px; }
+      .research-grid { grid-template-columns: 1fr; }
+      .rcard.span2, .rcard.span3 { grid-column: span 1; }
+      .tl-item { grid-template-columns: 80px 1px 1fr; gap: 0 24px; }
+      .tl-step { font-size: 32px; }
+      .partner-grid { grid-template-columns: 1fr; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .port-grid { grid-template-columns: 1fr; gap: 48px; }
+      .deliverables { grid-template-columns: 1fr; }
+      .page-footer { flex-direction: column; gap: 16px; padding: 32px 40px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav class="pnav">
+    <a href="development.html" class="pnav-back">← Development</a>
+    <span class="pnav-id">emc0ded / pacer</span>
+  </nav>
+
+
+  <!-- ════════════════════════════════════
+       01 — HERO
+  ════════════════════════════════════ -->
+  <section class="hero">
+
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <span class="label">// Product Highlight</span>
+        <span class="pill accent">v1.2.0</span>
+        <span class="pill">App Store</span>
+      </div>
+
+      <h1 class="hero-title">PACER</h1>
+
+      <p class="hero-tagline">A subscription-free running companion. Route creation, AI coaching, and adaptive training plans — built for runners who don't want to pay monthly for features that should just exist.</p>
+
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-val">3</div>
+          <div class="hero-stat-lbl">AI Features</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-val">0</div>
+          <div class="hero-stat-lbl">Subscriptions</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-val">1</div>
+          <div class="hero-stat-lbl">Developer</div>
+        </div>
+      </div>
+
+      <a href="https://apps.apple.com/app/pacer-running-companion" target="_blank" rel="noopener" class="hero-cta">
+        Download on App Store →
+      </a>
+    </div>
+
+    <div class="hero-right">
+      <!-- PLACEHOLDER: replace with pacer/hero-mockup.png — phone showing the map/route screen -->
+      <div class="hero-mockup">
+        <div class="placeholder-box">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="1.5">
+            <rect x="5" y="2" width="14" height="20" rx="2"/>
+            <line x1="9" y1="7" x2="15" y2="7"/>
+          </svg>
+        </div>
+        <p class="hero-mockup-hint">App screenshot<br>pacer/hero-mockup.png</p>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ════════════════════════════════════
+       02 — RESEARCH
+  ════════════════════════════════════ -->
+  <div class="section-outer">
+  <div class="wrap">
+
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <div class="section-meta">
+        <span class="label">// Research Dashboard</span>
+        <h2 class="section-title">Evidence Board</h2>
+      </div>
+    </div>
+
+    <div class="research-grid">
+
+      <div class="rcard">
+        <span class="rcard-label">// The Problem</span>
+        <h3>Paywalled by Design</h3>
+        <p>I was a runner stuck planning routes in Google Maps before every run because route creation is always paywalled. I hate subscription models. As a CS major given freedom to build anything, I finally built the tool I always wanted.</p>
+      </div>
+
+      <div class="rcard span2">
+        <span class="rcard-label">// Inquiry Question</span>
+        <h3>How do you keep it free and still make it worth using?</h3>
+        <p>How do I build a running app that keeps barrier to entry low — no subscriptions, no stripped-down free tier — while still being powerful enough to feel worth using?</p>
+      </div>
+
+      <div class="rcard span3">
+        <span class="rcard-label">// Why It Mattered</span>
+        <h3>I Was the Target User</h3>
+        <p>Every design decision was grounded in a frustration I personally experienced. There was no guessing who I was designing for. That made the research phase fast and the conviction high. When the problem is yours, you stop second-guessing the solution.</p>
+      </div>
+
+      <div class="rcard span2">
+        <span class="rcard-label">// Sources Used</span>
+        <h3>Real Docs, Real APIs</h3>
+        <ul class="source-list">
+          <li>Apple HIG — iOS + watchOS guidelines</li>
+          <li>Capacitor docs — cross-platform native bridge</li>
+          <li>Firebase Firestore — onSnapshot real-time architecture</li>
+          <li>WatchConnectivity framework — sendMessage vs transferUserInfo</li>
+          <li>Mapbox GL JS — route creation and live GPS rendering</li>
+          <li>HealthKit workout session API</li>
+          <li>App Store Review Guidelines — sections 1.4, 5.1.1, 2.5.1</li>
+        </ul>
+      </div>
+
+      <div class="rcard">
+        <span class="rcard-label">// Source Verification</span>
+        <h3>Tested Against Live Review</h3>
+        <p>Two real App Store rejections — one for a missing camera permission key (NSCameraUsageDescription), one for missing account deletion. Fixed and resubmitted. The guidelines weren't just referenced — they were tested against a live review process.</p>
+      </div>
+
+    </div>
+
+  </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════
+       03 — PROCESS
+  ════════════════════════════════════ -->
+  <div class="section-outer">
+  <div class="wrap">
+
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <div class="section-meta">
+        <span class="label">// Process Share</span>
+        <h2 class="section-title">How It Got Built</h2>
+      </div>
+    </div>
+
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-left">
+          <span class="tl-step">00</span>
+          <span class="tl-tag default">Starting Scope</span>
+        </div>
+        <div class="tl-spine"><div class="tl-dot"></div></div>
+        <div class="tl-right">
+          <h3>PWA First</h3>
+          <p>Planned as a Progressive Web App to stay within realistic time constraints. No native tooling, no App Store. Just build and ship.</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-left">
+          <span class="tl-step">01</span>
+          <span class="tl-tag pivot">Pivot</span>
+        </div>
+        <div class="tl-spine"><div class="tl-dot accent"></div></div>
+        <div class="tl-right">
+          <h3>PWA → Native iOS</h3>
+          <p>Capacitor — introduced by Claude — made native feasible without rewriting everything. An annoying transition that set back early momentum, but it unlocked the Watch app, HealthKit integration, and a significantly better product overall. Worth it.</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-left">
+          <span class="tl-step">02</span>
+          <span class="tl-tag moment">Moment</span>
+        </div>
+        <div class="tl-spine"><div class="tl-dot green"></div></div>
+        <div class="tl-right">
+          <h3>The Map Worked</h3>
+          <p>Classmates thought the scope was too ambitious. Once the Mapbox map was working with live GPS, the doubt cleared. It was clear the project would come together.</p>
+          <!-- PLACEHOLDER: add pacer/screenshot-map.png — the Mapbox route screen -->
+          <div class="tl-screenshot">
+            <span class="tl-screenshot-hint">pacer/screenshot-map.png</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-left">
+          <span class="tl-step">03</span>
+          <span class="tl-tag pivot">Pivot</span>
+        </div>
+        <div class="tl-spine"><div class="tl-dot accent"></div></div>
+        <div class="tl-right">
+          <h3>Emoji → Color Scale</h3>
+          <p>Original effort rating used emojis (😴→💀). Felt too silly for the tone. Replaced with a color gradient — green (#4ade80) for easy, red (#ef4444) for max effort. A design judgment call, not user testing. Didn't change function — changed the tone entirely.</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-left">
+          <span class="tl-step">04</span>
+          <span class="tl-tag default">Fix</span>
+        </div>
+        <div class="tl-spine"><div class="tl-dot"></div></div>
+        <div class="tl-right">
+          <h3>Coaching Was Generic</h3>
+          <p>Early AI coaching wasn't useful. Fix: added a 1–5 feel rating that feeds back into the Claude prompt. If feel = 5 (max effort), Claude emphasizes rest. If feel = 1 (easy), Claude encourages pushing further. Context in, useful output out.</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-left">
+          <span class="tl-step">05</span>
+          <span class="tl-tag reject">Rejection</span>
+        </div>
+        <div class="tl-spine"><div class="tl-dot red"></div></div>
+        <div class="tl-right">
+          <h3>Two App Store Rejections</h3>
+          <p>Rejection 1: missing NSCameraUsageDescription permission key. Rejection 2: missing account deletion flow. Both researched, both fixed, both resubmitted. Part of the real process — not a setback, just the work.</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-left">
+          <span class="tl-step">06</span>
+          <span class="tl-tag default">Next</span>
+        </div>
+        <div class="tl-spine"><div class="tl-dot"></div></div>
+        <div class="tl-right">
+          <h3>What's Not Done Yet</h3>
+          <p>Coaching and training plan don't fully talk to each other yet. Social features and nutrition integration are next. The app shipped — the roadmap didn't.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════
+       04 — AI + BUILD
+  ════════════════════════════════════ -->
+  <div class="section-outer">
+  <div class="wrap">
+
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <div class="section-meta">
+        <span class="label">// AI Tools + Prompt Experiments</span>
+        <h2 class="section-title">AI in the Build</h2>
+      </div>
+    </div>
+
+    <!-- A: AI as Build Partner -->
+    <div class="ai-sub">
+      <span class="ai-sub-label">// A — AI as Build Partner</span>
+      <div class="partner-grid">
+        <div class="partner-copy">
+          <p>Claude introduced <strong>Capacitor</strong>, wrote the Swift files for the watchOS app, and handled the native plugin architecture for the Watch bridge. Without it, the project scope would have been dramatically smaller.</p>
+          <p>The custom <strong>WatchBridgePlugin</strong> — a Capacitor plugin that fires JS events to avoid Firebase linking errors in the Watch target — was designed and debugged with AI. So were the Firebase Cloud Functions that power all three AI features.</p>
+          <p>Features that would have been cut entirely: <strong>training plans, AI coaching, the Apple Watch app.</strong> The vision stayed mine. The execution got a collaborator.</p>
+        </div>
+        <div class="callout-list">
+          <div class="callout-item">
+            <div class="callout-badge">W</div>
+            <span class="callout-txt">watchOS app + Swift bridge files</span>
+          </div>
+          <div class="callout-item">
+            <div class="callout-badge">P</div>
+            <span class="callout-txt">WatchBridgePlugin — custom Capacitor plugin</span>
+          </div>
+          <div class="callout-item">
+            <div class="callout-badge">F</div>
+            <span class="callout-txt">Firebase Cloud Functions — all 3 AI features</span>
+          </div>
+          <div class="callout-item">
+            <div class="callout-badge">X</div>
+            <span class="callout-txt">Xcode error debugging</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- B: AI as Product Feature -->
+    <div class="ai-sub">
+      <span class="ai-sub-label">// B — AI as Product Feature</span>
+      <div class="feature-grid">
+
+        <div class="fcard">
+          <div class="fcard-num">01</div>
+          <div class="fcard-title">Post-Run Coaching</div>
+          <p class="fcard-body">Initial prompts were generic and not useful. Refined with structured runner context, tone direction, and feel rating. Re-fetches when user selects their feel rating so the response is always relevant.</p>
+          <!-- PLACEHOLDER: add pacer/screenshot-coaching.png -->
+          <div class="fcard-screenshot">
+            <span class="fcard-screenshot-hint">pacer/screenshot-coaching.png</span>
+          </div>
+          <div class="prompt-block">
+            <span class="plabel">// Prompt rules</span>
+            Tone: warm, direct, expert — no bullet points<br>
+            Context: distance, pace, duration, feel rating<br>
+            Feel 5/5 → emphasize rest and recovery<br>
+            Feel 1/5 → encourage pushing further
+          </div>
+        </div>
+
+        <div class="fcard">
+          <div class="fcard-num">02</div>
+          <div class="fcard-title">Run Name Generation</div>
+          <p class="fcard-body">Prompted with distance, pace, and time of day. Token limit set to 20 to force brevity — names should feel like something you'd actually save and share.</p>
+          <div class="prompt-block">
+            <span class="plabel">// Example outputs</span>
+            "Harbor Tempo Loop"<br>
+            "Dawn Hills Run"<br>
+            "Lunch Break Five Miler"<br>
+            <br>
+            Max tokens: 20
+          </div>
+        </div>
+
+        <div class="fcard">
+          <div class="fcard-num">03</div>
+          <div class="fcard-title">Adaptive Training Plan</div>
+          <p class="fcard-body">Generates a full JSON plan (up to 20 weeks) from race goal, date, and recent run history. A second prompt adapts remaining weeks every Monday using completion rate and average perceived effort.</p>
+          <!-- PLACEHOLDER: add pacer/screenshot-training.png -->
+          <div class="fcard-screenshot">
+            <span class="fcard-screenshot-hint">pacer/screenshot-training.png</span>
+          </div>
+          <div class="prompt-block">
+            <span class="plabel">// Adaptation rules</span>
+            &lt;50% completion → reduce volume 15–20%<br>
+            Avg effort &gt;4 on easy runs → cut intensity<br>
+            Avg effort ≤2 → nudge volume up<br>
+            Output: strict JSON schema → Firestore
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════
+       05 — PORTFOLIO
+  ════════════════════════════════════ -->
+  <div class="section-outer">
+  <div class="wrap">
+
+    <div class="section-head">
+      <span class="section-num">04</span>
+      <div class="section-meta">
+        <span class="label">// Portfolio</span>
+        <h2 class="section-title">Product Highlight</h2>
+      </div>
+    </div>
+
+    <div class="pullquote">
+      <p class="pullquote-text">"<em>AI is an incredible tool</em> as long as you have a good vision. It made things possible that would have taken months on my own."</p>
+      <p class="pullquote-attr">— Emily Herbert, Developer</p>
+    </div>
+
+    <div class="port-grid">
+      <div class="port-col">
+        <h3>Design Language</h3>
+        <p>The design system came directly from this portfolio — dark theme, Bebas Neue, <strong>#E8F400 accent</strong>. Applied to running, it reads clean and sporty. Nike energy without the corporate polish.</p>
+        <p><strong>Strongest design moment:</strong> replacing emoji ratings with a color scale. Emojis felt wrong for an app meant to feel focused and athletic. The change didn't affect function — it changed the entire tone.</p>
+        <p><strong>Most proud of:</strong> the visual design, and route creation — the feature the whole project started from.</p>
+      </div>
+      <div class="port-col">
+        <h3>What I Learned</h3>
+        <p>AI levels the playing field for small teams and limited budgets. But <strong>the vision still has to come from you.</strong> The judgment about what felt right, what needed to be reworked — that was never the AI's call.</p>
+        <p>You can use AI to build things that would otherwise take months. The gap isn't technical anymore. The gap is knowing what you're building and why it matters.</p>
+      </div>
+    </div>
+
+    <span class="label" style="margin-bottom: 24px;">// Final Deliverables</span>
+    <div class="deliverables">
+
+      <div class="dlv">
+        <div class="dlv-dot"></div>
+        <div class="dlv-body">
+          <span class="dlv-title">iOS App</span>
+          <span class="dlv-desc">Pacer: Running Companion — live on the App Store</span>
+        </div>
+      </div>
+
+      <div class="dlv">
+        <div class="dlv-dot"></div>
+        <div class="dlv-body">
+          <span class="dlv-title">Apple Watch App</span>
+          <span class="dlv-desc">GPS tracking, pause/resume, live iPhone sync</span>
+        </div>
+      </div>
+
+      <div class="dlv">
+        <div class="dlv-dot"></div>
+        <div class="dlv-body">
+          <span class="dlv-title">Live Run Tracking</span>
+          <span class="dlv-desc">Real-time map, pace, splits, and elevation via Mapbox</span>
+        </div>
+      </div>
+
+      <div class="dlv">
+        <div class="dlv-dot"></div>
+        <div class="dlv-body">
+          <span class="dlv-title">Route Creation</span>
+          <span class="dlv-desc">Mapbox-powered — the feature the whole project started from</span>
+        </div>
+      </div>
+
+      <div class="dlv">
+        <div class="dlv-dot"></div>
+        <div class="dlv-body">
+          <span class="dlv-title">AI Post-Run Coaching</span>
+          <span class="dlv-desc">Personalised to distance, pace, and feel rating</span>
+        </div>
+      </div>
+
+      <div class="dlv">
+        <div class="dlv-dot"></div>
+        <div class="dlv-body">
+          <span class="dlv-title">Adaptive Training Plans</span>
+          <span class="dlv-desc">Weekly adjustments based on completed runs and perceived effort</span>
+        </div>
+      </div>
+
+      <div class="dlv">
+        <div class="dlv-dot"></div>
+        <div class="dlv-body">
+          <span class="dlv-title">Run History</span>
+          <span class="dlv-desc">Feel rating color system, mile splits, full run log</span>
+        </div>
+      </div>
+
+      <div class="dlv">
+        <div class="dlv-dot"></div>
+        <div class="dlv-body">
+          <span class="dlv-title">Design System</span>
+          <span class="dlv-desc">Bebas Neue / IBM Plex Mono / DM Sans — dark and light themes</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  </div>
+
+
+  <!-- ── FOOTER ── -->
+  <div class="page-footer-wrap">
+    <footer class="page-footer">
+      <span class="page-footer-left">Pacer: Running Companion — v1.2.0 — emc0ded</span>
+      <div class="page-footer-right">
+        <a href="https://emc0ded.github.io/pacer/privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a>
+        <a href="development.html">← Back to Development</a>
+      </div>
+    </footer>
+  </div>
+
+</body>
+</html>

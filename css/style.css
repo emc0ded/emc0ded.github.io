@@ -752,4 +752,5 @@ footer {
   .bottom-nav a { font-size: 11px; letter-spacing: 0.12em; }
   footer { flex-direction: column; gap: 16px; text-align: center; padding: 32px 24px; }
   .footer-links { justify-content: center; }
+  #drag-photo { top: 68% !important; }
 }

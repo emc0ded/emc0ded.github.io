@@ -173,8 +173,8 @@ nav a.active { border-bottom: 1.5px solid var(--fg); }
 
 /* Hero photo */
 .hero-photo {
-  width: clamp(120px, 13vw, 200px);
-  height: clamp(155px, 17vw, 260px);
+  width: clamp(180px, 18vw, 300px);
+  height: clamp(230px, 23vw, 390px);
   object-fit: cover;
   object-position: center;
   display: block;

@@ -529,6 +529,14 @@ nav a.active { border-bottom: 1.5px solid var(--fg); }
   line-height: 1.7;
   padding: 16px;
 }
+.imac-screen img {
+  width: calc(100% + 32px);
+  height: calc(100% + 32px);
+  object-fit: cover;
+  object-position: center top;
+  margin: -16px;
+  display: block;
+}
 
 .imac-chin {
   width: 500px;
@@ -588,6 +596,15 @@ nav a.active { border-bottom: 1.5px solid var(--fg); }
   border-right: 1px solid var(--fg);
   border-bottom: 1px solid var(--fg);
   transition: background 0.2s;
+}
+
+.project-logo {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  display: block;
 }
 
 .project-card:hover {

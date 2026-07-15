@@ -149,3 +149,43 @@ document.addEventListener('click', closeAllDropdowns);
     }
   });
 })();
+
+
+/* ─────────────────────────────────────────
+   ASSET FADE-IN
+───────────────────────────────────────── */
+(function initAssetFade() {
+  const selector = '.phone-screen img, .phone-screen video, .imac-screen img, .hero-photo, .hero-resume, .hero-sticker, .project-logo';
+  document.querySelectorAll(selector).forEach(el => {
+    const tag = el.tagName.toLowerCase();
+    function reveal() { el.classList.add('asset-loaded'); }
+    if (tag === 'img') {
+      if (el.complete && el.naturalWidth) { reveal(); }
+      else { el.addEventListener('load', reveal); el.addEventListener('error', reveal); }
+    } else if (tag === 'video') {
+      if (el.readyState >= 3) { reveal(); }
+      else { el.addEventListener('canplay', reveal); el.addEventListener('loadeddata', reveal); }
+    }
+  });
+})();
+
+
+/* ─────────────────────────────────────────
+   SCROLL REVEAL (project cards only)
+───────────────────────────────────────── */
+(function initReveal() {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.project-card').forEach((el, i) => {
+    el.classList.add('reveal');
+    el.style.transitionDelay = (i * 0.08) + 's';
+    io.observe(el);
+  });
+})();

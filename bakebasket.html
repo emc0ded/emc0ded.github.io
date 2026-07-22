@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Bake Basket / emily herbert</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #EAE5DB;
+      --bg-dark:      #DDD7CA;
+      --card:         #F5F2EB;
+      --card-dark:    #ECE8DF;
+      --border:       #C8BFA8;
+      --text:         #1E1A12;
+      --secondary:    #6B5B3A;
+      --muted:        #A8987A;
+      --accent:       #3F5218;
+      --accent-mid:   #4D6520;
+      --accent-light: #EBF0E0;
+      --accent-text:  #FFFFFF;
+      --serif:        'Playfair Display', serif;
+      --mono:         'IBM Plex Mono', monospace;
+      --body:         'DM Sans', sans-serif;
+      --r-card:       12px;
+      --r-pill:       50px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--body);
+      font-weight: 300;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* NAV */
+    .pnav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 56px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 64px;
+      z-index: 100;
+    }
+    .pnav-back {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .pnav-back:hover { color: var(--text); }
+    .pnav-id {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ATOMS */
+    .label {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: block;
+    }
+    .pill {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: var(--r-pill);
+      border: 1px solid var(--border);
+      color: var(--secondary);
+      background: var(--card);
+    }
+    .pill.accent {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--accent-text);
+    }
+
+    /* SECTION WRAPPER */
+    .wrap {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 100px 80px;
+    }
+    .section-outer { border-top: 1px solid var(--border); }
+
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      gap: 24px;
+      margin-bottom: 64px;
+    }
+    .section-num {
+      font-family: var(--mono);
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      padding-bottom: 8px;
+    }
+    .section-meta { display: flex; flex-direction: column; gap: 6px; }
+    .section-title {
+      font-family: var(--serif);
+      font-size: 48px;
+      font-weight: 600;
+      line-height: 1.05;
+      color: var(--accent);
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      padding: 120px 80px 80px;
+      max-width: 1360px;
+      margin: 0 auto;
+    }
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+    .hero-logo {
+      height: 56px;
+      width: auto;
+      object-fit: contain;
+    }
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(72px, 10vw, 148px);
+      font-weight: 700;
+      line-height: 0.92;
+      color: var(--accent);
+      margin-bottom: 32px;
+    }
+    .hero-title em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--accent-mid);
+    }
+    .hero-tagline {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--secondary);
+      line-height: 1.8;
+      max-width: 480px;
+      margin-bottom: 48px;
+    }
+    .hero-stats {
+      display: flex;
+      border: 1px solid var(--border);
+      border-radius: var(--r-card);
+      overflow: hidden;
+      background: var(--card);
+    }
+    .hero-stat {
+      flex: 1;
+      padding: 24px 28px;
+      border-right: 1px solid var(--border);
+    }
+    .hero-stat:last-child { border-right: none; }
+    .hero-stat-val {
+      font-family: var(--serif);
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+    .hero-stat-lbl {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .hero-right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-mockup {
+      width: 100%;
+      max-width: 340px;
+      aspect-ratio: 9/20;
+      background: var(--card-dark);
+      border: 1px solid var(--border);
+      border-radius: 36px;
+      overflow: hidden;
+      box-shadow: 0 32px 80px rgba(63, 82, 24, 0.12);
+    }
+    .hero-mockup img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+    }
+
+    /* FEATURE GRID */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--r-card);
+      overflow: hidden;
+    }
+    .fcard {
+      background: var(--card);
+      padding: 44px 40px;
+    }
+    .fcard-num {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent-mid);
+      display: block;
+      margin-bottom: 18px;
+    }
+    .fcard h3 {
+      font-family: var(--serif);
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+    .fcard p {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--secondary);
+      line-height: 1.85;
+    }
+    .fcard-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 22px;
+    }
+    .fcard-tag {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--r-pill);
+      color: var(--muted);
+      background: var(--bg);
+    }
+
+    /* SCREENSHOT GALLERY */
+    .phone-gallery {
+      display: flex;
+      gap: 28px;
+      align-items: flex-start;
+    }
+    .phone-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .phone-col-label {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .phone-frame {
+      width: 100%;
+      aspect-ratio: 9/19;
+      border-radius: 24px;
+      overflow: hidden;
+      background: var(--card-dark);
+      border: 1px solid var(--border);
+      box-shadow: 0 12px 40px rgba(63, 82, 24, 0.08);
+    }
+    .phone-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* DELIVERABLES */
+    .deliverables {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--r-card);
+      overflow: hidden;
+      margin-top: 64px;
+    }
+    .dlv {
+      background: var(--card);
+      padding: 22px 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .dlv-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      margin-top: 6px;
+    }
+    .dlv-body { display: flex; flex-direction: column; gap: 3px; }
+    .dlv-title {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+    .dlv-desc {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--secondary);
+      line-height: 1.6;
+    }
+
+    /* DISCLAIMER */
+    .disclaimer {
+      max-width: 1360px;
+      margin: 64px auto 0;
+      padding: 0 80px;
+    }
+    .disclaimer-inner {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px 24px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-card);
+    }
+    .disclaimer-icon {
+      font-size: 14px;
+      flex-shrink: 0;
+      margin-top: 1px;
+      color: var(--muted);
+    }
+    .disclaimer-text {
+      font-family: var(--mono);
+      font-size: 11px;
+      line-height: 1.7;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+
+    /* FOOTER */
+    .page-footer-wrap { border-top: 1px solid var(--border); margin-top: 64px; }
+    .page-footer {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 40px 80px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .page-footer-left {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .page-footer-right a {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--secondary);
+      transition: color 0.2s;
+    }
+    .page-footer-right a:hover { color: var(--text); }
+
+    /* RESPONSIVE */
+    @media (max-width: 1000px) {
+      .hero { grid-template-columns: 1fr; padding: 100px 40px 64px; }
+      .hero-right { display: none; }
+      .wrap { padding: 72px 40px; }
+      .pnav { padding: 0 24px; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .phone-gallery { flex-wrap: wrap; }
+      .deliverables { grid-template-columns: 1fr; }
+      .page-footer { flex-direction: column; gap: 16px; padding: 32px 40px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="pnav">
+    <a href="development.html" class="pnav-back">← Development</a>
+    <span class="pnav-id">emc0ded / my bake basket</span>
+  </nav>
+
+
+  <!-- HERO -->
+  <section class="hero">
+
+    <div>
+      <div class="hero-eyebrow">
+        <span class="pill accent">Flutter</span>
+        <span class="pill">Firebase</span>
+      </div>
+
+      <h1 class="hero-title">My<br>Bake<br><em>Basket</em></h1>
+
+      <p class="hero-tagline">A recipe management app built for bakers. Designed for a local sourdough baker and influencer who needed a better way to save, scale, and share her recipes.</p>
+
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-val">4</div>
+          <div class="hero-stat-lbl">Core Features</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-val">1</div>
+          <div class="hero-stat-lbl">Real Client</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-val">iOS &amp; Android</div>
+          <div class="hero-stat-lbl">Platforms</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-mockup">
+        <img src="assets/mybakebasket/home.png" alt="My Bake Basket home screen">
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- SECTION 01 — FEATURES -->
+  <div class="section-outer">
+  <div class="wrap">
+
+    <div class="section-head">
+      <span class="section-num">01 /</span>
+      <div class="section-meta">
+        <span class="label">// Core Features</span>
+        <h2 class="section-title">What It Does</h2>
+      </div>
+    </div>
+
+    <div class="feature-grid">
+
+      <div class="fcard">
+        <span class="fcard-num">// 01</span>
+        <h3>Recipe Upload</h3>
+        <p>Add recipes with a full set of details: ingredients with quantities, step-by-step instructions, custom tags, and photos. The ingredient checklist makes it easy to follow along while baking without losing your place.</p>
+        <div class="fcard-tags">
+          <span class="fcard-tag">Custom Tags</span>
+          <span class="fcard-tag">Photo Upload</span>
+          <span class="fcard-tag">Ingredient Checklist</span>
+          <span class="fcard-tag">Instructions</span>
+        </div>
+      </div>
+
+      <div class="fcard">
+        <span class="fcard-num">// 02</span>
+        <h3>Share with Friends</h3>
+        <p>Send any recipe directly to another user in the app. Perfect for a baker who wants to share her recipes with followers or collaborators. No copying links, no screenshotting posts.</p>
+        <div class="fcard-tags">
+          <span class="fcard-tag">User Sharing</span>
+          <span class="fcard-tag">In-App</span>
+        </div>
+      </div>
+
+      <div class="fcard">
+        <span class="fcard-num">// 03</span>
+        <h3>Sourdough Calculator</h3>
+        <p>A built-in hydration and ratio calculator tailored to sourdough baking. Scale recipes up or down and automatically adjust ingredient quantities based on your desired batch size or hydration level.</p>
+        <div class="fcard-tags">
+          <span class="fcard-tag">Hydration Calculator</span>
+          <span class="fcard-tag">Batch Scaling</span>
+          <span class="fcard-tag">Auto Adjust</span>
+        </div>
+      </div>
+
+      <div class="fcard">
+        <span class="fcard-num">// 04</span>
+        <h3>Shopping Lists</h3>
+        <p>Generate a shopping list from any recipe in one tap. Ingredients pull directly from the recipe so you never have to re-enter anything. Lists are saved in the app until you clear them.</p>
+        <div class="fcard-tags">
+          <span class="fcard-tag">Auto-Generate</span>
+          <span class="fcard-tag">Saved Lists</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  </div>
+
+
+  <!-- SECTION 02 — SCREENSHOTS -->
+  <div class="section-outer">
+  <div class="wrap">
+
+    <div class="section-head">
+      <span class="section-num">02 /</span>
+      <div class="section-meta">
+        <span class="label">// App Screens</span>
+        <h2 class="section-title">In the App</h2>
+      </div>
+    </div>
+
+    <div class="phone-gallery">
+
+      <div class="phone-col">
+        <span class="phone-col-label">// Home</span>
+        <div class="phone-frame">
+          <img src="assets/mybakebasket/home.png" alt="Home screen">
+        </div>
+      </div>
+
+      <div class="phone-col">
+        <span class="phone-col-label">// Add Recipe</span>
+        <div class="phone-frame">
+          <img src="assets/mybakebasket/addrecipe.png" alt="Add recipe screen">
+        </div>
+      </div>
+
+      <div class="phone-col">
+        <span class="phone-col-label">// Recipe Details</span>
+        <div class="phone-frame">
+          <img src="assets/mybakebasket/addrecipe2.png" alt="Recipe details">
+        </div>
+      </div>
+
+      <div class="phone-col">
+        <span class="phone-col-label">// Login</span>
+        <div class="phone-frame">
+          <img src="assets/mybakebasket/login.png" alt="Login screen">
+        </div>
+      </div>
+
+    </div>
+
+    <div class="deliverables">
+      <div class="dlv">
+        <div class="dlv-dot"></div>
+        <div class="dlv-body">
+          <span class="dlv-title">Recipe Management</span>
+          <span class="dlv-desc">Full CRUD with tags, images, checklists, and instructions</span>
+        </div>
+      </div>
+      <div class="dlv">
+        <div class="dlv-dot"></div>
+        <div class="dlv-body">
+          <span class="dlv-title">Recipe Sharing</span>
+          <span class="dlv-desc">Send any recipe to another user directly in the app</span>
+        </div>
+      </div>
+      <div class="dlv">
+        <div class="dlv-dot"></div>
+        <div class="dlv-body">
+          <span class="dlv-title">Sourdough Calculator</span>
+          <span class="dlv-desc">Hydration ratios and batch scaling built for sourdough</span>
+        </div>
+      </div>
+      <div class="dlv">
+        <div class="dlv-dot"></div>
+        <div class="dlv-body">
+          <span class="dlv-title">Shopping Lists</span>
+          <span class="dlv-desc">Auto-generated from recipe ingredients, saved in-app</span>
+        </div>
+      </div>
+      <div class="dlv">
+        <div class="dlv-dot"></div>
+        <div class="dlv-body">
+          <span class="dlv-title">Flutter + Firebase</span>
+          <span class="dlv-desc">Cross-platform with real-time Firestore sync</span>
+        </div>
+      </div>
+      <div class="dlv">
+        <div class="dlv-dot"></div>
+        <div class="dlv-body">
+          <span class="dlv-title">Client Work</span>
+          <span class="dlv-desc">Built for a sourdough baker and content creator</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  </div>
+
+
+  <!-- DISCLAIMER -->
+  <div class="disclaimer">
+    <div class="disclaimer-inner">
+      <span class="disclaimer-icon">※</span>
+      <p class="disclaimer-text">Note: This app was fully functional at the time of delivery. Ownership has since been transferred to the client and is no longer maintained by the original developers. Current availability and functionality may vary.</p>
+    </div>
+  </div>
+
+
+  <!-- FOOTER -->
+  <div class="page-footer-wrap">
+    <footer class="page-footer">
+      <span class="page-footer-left">My Bake Basket / emc0ded</span>
+      <div class="page-footer-right">
+        <a href="development.html">← Back to Development</a>
+      </div>
+    </footer>
+  </div>
+
+</body>
+</html>

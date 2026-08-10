@@ -447,11 +447,10 @@ nav a.active { border-bottom: 1.5px solid var(--fg); }
 
 /* iMAC MOCKUP */
 .desktop-mockup {
-  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  width: 500px;
+  width: 100%;
 }
 
 .imac-wrap {
@@ -461,39 +460,31 @@ nav a.active { border-bottom: 1.5px solid var(--fg); }
 }
 
 .imac-body {
-  width: 500px;
+  width: 100%;
   background: linear-gradient(180deg, #d8d8d8 0%, #c4c4c4 100%);
-  border-radius: 18px 18px 6px 6px;
+  border-radius: 18px 18px 0 0;
   padding: 14px 14px 0;
   box-shadow: 0 0 0 1px #bbb, 0 12px 40px rgba(0,0,0,0.2);
 }
 
 .imac-screen {
   width: 100%;
-  height: 265px;
+  height: 245px;
   background: var(--light);
   border-radius: 6px 6px 0 0;
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--mid);
-  text-align: center;
-  line-height: 1.7;
-  padding: 16px;
 }
 
 .imac-screen img {
-  width: calc(100% + 32px);
-  height: auto;
-  margin: -7px -16px 0 -16px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
   display: block;
 }
 
 .imac-chin {
-  width: 500px;
+  width: 100%;
   height: 28px;
   background: linear-gradient(180deg, #c4c4c4 0%, #b8b8b8 100%);
   border-radius: 0 0 4px 4px;
@@ -537,11 +528,44 @@ a.desktop-mockup {
   flex-direction: column;
   gap: 16px;
   cursor: pointer;
+  width: 100%;
 }
 
 a.desktop-mockup:hover .imac-body {
   opacity: 0.85;
   transition: opacity 0.2s;
+}
+
+/* DESKTOP GRID (web-design page) */
+.desktop-section { padding: 72px 80px; }
+
+.desktop-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 500px));
+  gap: 56px 48px;
+  margin-top: 36px;
+}
+
+/* EMAIL LINK */
+.about-email {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg);
+  text-decoration: none;
+  padding: 13px 22px;
+  border: 1px solid var(--fg);
+  margin-top: 28px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.about-email:hover {
+  background: var(--fg);
+  color: var(--bg);
 }
 
 /* PROJECT CARDS */
@@ -717,6 +741,8 @@ footer {
   .work-header { flex-direction: column; gap: 24px; align-items: flex-start; padding: 120px 32px 40px; }
   .scroll-section { padding: 48px 0; }
   .scroll-section-label { padding: 0 32px; }
+  .desktop-section { padding: 48px 32px; }
+  .desktop-grid { grid-template-columns: 1fr; gap: 48px; }
   .projects-section { padding: 48px 32px; }
   footer { padding: 36px 32px; }
   .bottom-nav { gap: 20px; padding: 18px 24px; flex-wrap: wrap; justify-content: center; }

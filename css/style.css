@@ -254,8 +254,8 @@ nav a.active { border-bottom: 1.5px solid var(--fg); }
 
 .wave-anim {
   position: relative;
-  width: 420px;
-  height: 620px;
+  width: min(420px, 100%);
+  aspect-ratio: 420 / 620;
 }
 
 .wave-frame {
@@ -469,7 +469,7 @@ nav a.active { border-bottom: 1.5px solid var(--fg); }
 
 .imac-screen {
   width: 100%;
-  height: 245px;
+  aspect-ratio: 472 / 245;
   background: var(--light);
   border-radius: 6px 6px 0 0;
   overflow: hidden;
